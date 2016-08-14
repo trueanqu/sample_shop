@@ -1,4 +1,5 @@
-sql
+sql/
 error.log
 config/
 vendor/
+.idea
