@@ -1,0 +1,13 @@
+{
+    "name": "trueanqu/sample_shop",
+    "description": "Learning application which consists of mvc-framework and simple shop uses the framework",
+    "type": "project",
+    "license": "GNU GPL",
+    "authors": [
+        {
+            "name": "Bohdan Oblapenko",
+            "email": "bogdan.oblapenko@gmail.com"
+        }
+    ],
+    "require": {}
+}
