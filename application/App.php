@@ -9,12 +9,13 @@
 namespace App;
 
 
-class App
+class App extends Singleton
 {
-    public $config = [];
-    public function __construct($config)
+    private $config = null;
+    
+    public function __construct()
     {
-        $this->config = $config;
+        $this->config = Config::getInstance();
     }
 
     public function run()

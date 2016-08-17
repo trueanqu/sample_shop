@@ -2,9 +2,9 @@
 require "../vendor/autoload.php";
 use App\App;
 
-$app = new App(include('../config/config.php'));
+$app = App::getInstance();
 $app->run();
 $app->done();
 
 echo "<pre>";
-print_r($app);
+var_dump($app);

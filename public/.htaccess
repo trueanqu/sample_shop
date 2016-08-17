@@ -1,7 +1,12 @@
-<IfModule mod_rewrite.c>
-    RewriteEngine On
+AddDefaultCharset utf-8
 
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^ index.php [L]
-</IfModule>
+RewriteEngine On
+
+DirectoryIndex index.php?controller=index
+
+ErrorDocument 404 /index.php?controller=error
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]
+
