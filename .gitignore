@@ -1,6 +1,6 @@
 sql/
 error.log
-config/
-vendor/
+vendor/composer
+vendor/autoload.php
 .idea
-/application/default_config.php
+/config/db.php

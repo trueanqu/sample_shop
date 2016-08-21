@@ -6,7 +6,7 @@
  * Time: 10:29 AM
  */
 
-namespace App;
+namespace Framework;
 
 
 class Config extends Singleton
@@ -15,7 +15,7 @@ class Config extends Singleton
 
     public function __construct()
     {
-        $defaultConfig = include 'default_config.php';
+        $defaultConfig = include '../config/default_config.php';
         $configFiles = scandir('../config');
         $customConfig = array();
 

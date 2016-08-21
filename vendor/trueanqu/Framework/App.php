@@ -6,7 +6,7 @@
  * Time: 3:53 PM
  */
 
-namespace App;
+namespace Framework;
 
 
 class App extends Singleton

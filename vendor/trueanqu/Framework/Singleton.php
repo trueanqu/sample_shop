@@ -6,7 +6,7 @@
  * Time: 10:02 AM
  */
 
-namespace App;
+namespace Framework;
 
 
 abstract class Singleton
