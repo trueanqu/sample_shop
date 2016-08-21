@@ -6,7 +6,7 @@
  * Time: 12:27 PM
  */
 
-namespace Framework;
+namespace Framework\DB;
 
 
 interface DBObject
