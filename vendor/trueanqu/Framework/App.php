@@ -12,7 +12,7 @@ namespace Framework;
 class App extends Singleton
 {
     private $config = null;
-    
+
     public function __construct()
     {
         $this->config = Config::getInstance();
