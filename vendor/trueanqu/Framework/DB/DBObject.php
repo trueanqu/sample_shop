@@ -52,4 +52,5 @@ interface DBObject
      */
     function getCategory($category, $recursively = FALSE);
 
+
 }
