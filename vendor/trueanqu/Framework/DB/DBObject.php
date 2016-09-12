@@ -45,9 +45,9 @@ interface DBObject
 
 
     /**
-     * Get category with child elements of lower level ($recursively = FALSE) or with child elements of all lower levels ($recursively = TRUE)
+     * Get category with child elements of lower level(s)
      * @param $category
-     * @param bool $recursively
+     * @param bool $recursively defines whether all child nodes should be returned recursively
      * @return mixed
      */
     function getCategory($category, $recursively = FALSE);
