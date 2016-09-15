@@ -19,6 +19,17 @@ namespace Framework\DB;
 interface DBObject
 {
     /**
+     * Get database connection with credentials listen in current or default config
+     * @return mixed
+     */
+    function getConnection();
+
+    /**
+     * Send query to DB server
+     * @return mixed
+     */
+    function query();
+    /**
      * Method to get category tree from database to use as navigation menu
      * @return mixed
      */
