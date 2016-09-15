@@ -40,4 +40,14 @@ class MySQLAdapter implements DBObject
     {
         // TODO: Implement getCategory() method.
     }
+
+    function getConnection()
+    {
+        // TODO: Implement getConnection() method.
+    }
+
+    function query()
+    {
+        // TODO: Implement query() method.
+    }
 }
