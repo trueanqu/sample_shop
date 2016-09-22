@@ -6,7 +6,7 @@
  * Time: 12:13
  */
 
-namespace Framework;
+namespace Framework\Response;
 
 
 class Response
