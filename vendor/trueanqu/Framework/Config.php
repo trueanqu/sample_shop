@@ -42,7 +42,7 @@ class Config extends Singleton
 
     /**Get certain value or array of values correspond requested $name
      *
-     * @param $name name of configuration to get
+     * @param $name string of configuration to get
      * @return mixed value or array of configurational values were requested
      * @throws \Exception if there is no configuration which corresponds to $name
      */
