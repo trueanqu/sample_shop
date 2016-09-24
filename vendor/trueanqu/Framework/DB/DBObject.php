@@ -8,14 +8,6 @@
 
 namespace Framework\DB;
 
-/**
- * Interface DBObject is unified interface which presents a set of required methods to work with various DBs
- * For current DB architecture (metamodel) framework should work with one db(or scheme) per app
- * For now, framework won't contain db/db scheme creation, this should developer do using db administration tools
- * it will be considered that db, specified in configuration file was created and works correctly
- *
- * @package Framework\DB
- */
 interface DBObject
 {
     /**
