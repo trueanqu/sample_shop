@@ -32,8 +32,13 @@ class Response
     public function __construct($data, $code = 200)
     {
         $this->code = $code;
-        $this->setContent($data);
+        $this->init($data);
+    }
+
+    protected function init($content)
+    {
         $this->setHeader('Content-Type', $this->contentType);
+        $this->setContent($content);
     }
 
     /**
@@ -72,14 +77,6 @@ class Response
     public function getHeaders()
     {
         return $this->headers;
-    }
-
-    /**
-     * @param array $headers
-     */
-    public function setHeaders($headers)
-    {
-        $this->headers = $headers;
     }
 
     /**
