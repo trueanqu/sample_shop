@@ -29,8 +29,4 @@ interface DBObject
      * @return mixed
      */
     function query();
-    /**
-     * Method to get category tree from database to use as navigation menu
-     * @return mixed
-     */
 }
