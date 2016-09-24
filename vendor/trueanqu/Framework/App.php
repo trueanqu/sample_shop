@@ -12,10 +12,12 @@ namespace Framework;
 class App extends Singleton
 {
     private $config = null;
+    private $request = null;
 
     public function __construct()
     {
         $this->config = Config::getInstance();
+        $this->request = new Request();
     }
 
     public function run()
