@@ -8,39 +8,11 @@
 
 namespace Framework\DB\Adapters;
 
-
-use Framework\DB\client;
 use Framework\DB\DBObject;
-use Framework\DB\order;
+
 
 class MySQLAdapter implements DBObject 
 {
-
-    function getCategoryTree()
-    {
-        // TODO: Implement getCategoryTree() method.
-    }
-
-    function getClientOrders($client)
-    {
-        // TODO: Implement getClientOrders() method.
-    }
-
-    function getOrder($order)
-    {
-        // TODO: Implement getOrder() method.
-    }
-
-    function getOrders()
-    {
-        // TODO: Implement getOrders() method.
-    }
-
-    function getCategory($category, $recursively = FALSE)
-    {
-        // TODO: Implement getCategory() method.
-    }
-
     function getConnection()
     {
         // TODO: Implement getConnection() method.
@@ -50,4 +22,5 @@ class MySQLAdapter implements DBObject
     {
         // TODO: Implement query() method.
     }
+
 }

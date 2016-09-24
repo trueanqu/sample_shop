@@ -33,35 +33,4 @@ interface DBObject
      * Method to get category tree from database to use as navigation menu
      * @return mixed
      */
-    function getCategoryTree();
-
-    /** Get certain client's orders
-     * @param $client client identifier
-     * @return mixed
-     */
-    function getClientOrders($client);
-
-    /**
-     * Get specific order ...
-     * @param $order order identifier
-     * @return mixed
-     */
-    function getOrder($order);
-
-    /**
-     * Get all orders
-     * @return mixed
-     */
-    function getOrders();
-
-
-    /**
-     * Get category with child elements of lower level(s)
-     * @param $category
-     * @param bool $recursively defines whether all child nodes should be returned recursively
-     * @return mixed
-     */
-    function getCategory($category, $recursively = FALSE);
-
-
 }
