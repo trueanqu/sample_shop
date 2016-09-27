@@ -21,7 +21,7 @@ class Config extends Singleton
 
         foreach($configFiles as $value)
         {
-            if(strpos($value,'.php'))
+            if(strpos($value,'.php') AND $value !== 'default_config.php')
             {
                 $customKey = substr($value, 0, strpos($value, '.'));
                 $customConfig[$customKey] = include '../config/'.$value;

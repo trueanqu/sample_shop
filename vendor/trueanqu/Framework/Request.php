@@ -22,11 +22,15 @@ class Request
 
     public function filterUri()
     {
-        return filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_ENCODED, FILTER_FLAG_ENCODE_HIGH);
+        if(preg_match("/^\/[a-z]+((\/([a-z]+|[0-9]+)(\/[a-z]+)?))?$/", $_SERVER['REQUEST_URI']))
+            return $_SERVER['REQUEST_URI'];
+        else
+            return 'invalid uri';//TODO: handle exception
+        //return filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_ENCODED, FILTER_FLAG_STRIP_LOW);
     }
 
     /**
-     * @return bool
+     * @return
      */
     public function filterMethod()
     {
@@ -35,7 +39,7 @@ class Request
         {
             return $_SERVER['REQUEST_METHOD'];
         } else {
-            //TODO: return response with 500 code or throw exception;
+            return 'invalid method';//TODO: return response with 500 code or throw exception;
         }
     }
 }
