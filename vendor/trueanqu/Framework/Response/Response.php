@@ -26,7 +26,8 @@ class Response
     const STATUS_MSGS = [
         200 => 'OK',
         404 => 'Not Found',
-        301 => 'Moved Permanently'
+        301 => 'Moved Permanently',
+        500 => 'Internal error'
     ];
 
     public function __construct($data, $code = 200)
