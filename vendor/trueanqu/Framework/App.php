@@ -17,7 +17,7 @@ class App extends Singleton
     private function __construct()
     {
         $this->config = Config::getInstance();
-        $this->request = new Request();
+        $this->request = Request::getInstance();
     }
 
     public function run()

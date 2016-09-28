@@ -9,12 +9,12 @@
 namespace Framework;
 
 
-class Request
+class Request extends Singleton
 {
     private $requestUri;
     private $requestMethod;
 
-    public function __construct()
+    private function __construct()
     {
         $this->requestMethod = $this->filterMethod();
         $this->requestUri = $this->filterUri();
@@ -41,5 +41,10 @@ class Request
         } else {
             return 'invalid method';//TODO: return response with 500 code or throw exception;
         }
+    }
+
+    protected static function createInstance()
+    {
+        return new Request();
     }
 }
