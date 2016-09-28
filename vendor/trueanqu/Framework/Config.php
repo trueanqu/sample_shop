@@ -13,7 +13,7 @@ class Config extends Singleton
 {
     private $config = array();
 
-    public function __construct()
+    private function __construct()
     {
         $defaultConfig = include '../config/default_config.php';
         $configFiles = scandir('../config');
@@ -51,6 +51,11 @@ class Config extends Singleton
         if(isset($this->config[$name]))
             return $this->config[$name];
         throw new \Exception('No configuration for '.$name.' has been set.');
+    }
+
+    protected static function createInstance()
+    {
+        return new Config();
     }
 
 }

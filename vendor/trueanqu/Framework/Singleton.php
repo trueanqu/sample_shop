@@ -19,7 +19,7 @@ abstract class Singleton
         if(class_exists($keyClassName))
         {
             if(!isset($instances[$keyClassName]))
-                self::$instances[$keyClassName] = new $keyClassName();
+                self::$instances[$keyClassName] = $keyClassName::createInstance();
             return self::$instances[$keyClassName];
         }
 
@@ -27,4 +27,6 @@ abstract class Singleton
     }
 
     final private function __clone(){}
+
+    protected static function createInstance(){}
 }
