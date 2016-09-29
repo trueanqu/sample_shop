@@ -7,21 +7,21 @@
  */
 return [
     'get_categories' => [
-        'pattern' => 'categories/',
+        'pattern' => '/category/',
         'http_method' => 'GET',
         'class' => 'CategoryController',
         'method' => 'getCategories'
     ],
     /*PRODUCTS SECTION*/
     'get_products' => [
-        'pattern' => 'products/',
+        'pattern' => '/product/',
         'http_method' => 'GET',
         'class' => 'ProductController',
         'method' => 'getProducts'
     ],
     /*CRUD -> read*/
     'get_product_by_id' => [
-        'pattern' => 'products/{id}',
+        'pattern' => '/product/{id}',
         'http_method' => 'GET',
         'class' => 'ProductController',
         'method' => 'getProductByID',
@@ -31,7 +31,7 @@ return [
     ],
     /*CRUD -> create*/
     'create_product_with_id' => [
-        'pattern' => 'products/{id}',
+        'pattern' => '/product/{id}',
         'http_method' => 'POST',
         'class' => 'ProductController',
         'method' => 'createProductWithID',
@@ -41,7 +41,7 @@ return [
     ],
     /*CRUD -> update*/
     'update_product_with_id' => [
-        'pattern' => 'products/{id}',
+        'pattern' => '/product/{id}',
         'http_method' => 'PUT',
         'class' => 'ProductController',
         'method' => 'updateProductWithID',
@@ -51,7 +51,7 @@ return [
     ],
     /*CRUD -> update*/
     'delete_product_with_id' => [
-        'pattern' => 'products/{id}',
+        'pattern' => '/product/{id}',
         'http_method' => 'DELETE',
         'class' => 'ProductController',
         'method' => 'deleteProductWithID',
@@ -60,13 +60,13 @@ return [
         ]
     ],
     'get_clients' => [
-        'pattern' => 'clients/',
+        'pattern' => '/client/',
         'http_method' => 'GET',
         'class' => 'ClientController',
         'method' => 'getClients'
     ],
     'get_orders' => [
-        'pattern' => 'orders/',
+        'pattern' => '/order/',
         'http_method' => 'GET',
         'class' => 'OrderController',
         'method' => 'getOrders'
