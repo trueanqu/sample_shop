@@ -25,8 +25,9 @@ class Response
 
     const STATUS_MSGS = [
         200 => 'OK',
-        404 => 'Not Found',
         301 => 'Moved Permanently',
+        404 => 'Not Found',
+        403 => 'Forbidden',
         500 => 'Internal error'
     ];
 
