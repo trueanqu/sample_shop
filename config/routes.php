@@ -6,13 +6,24 @@
  * Time: 11:03 AM
  */
 return [
+    /*--------------------------------------CATEGORIES SECTION-----------------------------------------------*/
     'get_categories' => [
         'pattern' => '/category/',
         'http_method' => 'GET',
         'class' => 'CategoryController',
         'method' => 'getCategories'
     ],
-    /*PRODUCTS SECTION*/
+    /*CRUD -> read*/
+    'get_category_by_name' => [
+        'pattern' => '/category/{name}',
+        'http_method' => 'GET',
+        'class' => 'CategoryController',
+        'method' => 'getCategoryByName',
+        'requirements' => [
+            'name' => '[a-z]+'
+        ]
+    ],
+    /*--------------------------------------PRODUCTS SECTION-------------------------------------------------*/
     'get_products' => [
         'pattern' => '/product/',
         'http_method' => 'GET',

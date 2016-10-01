@@ -8,6 +8,8 @@
 
 namespace Framework;
 
+use Framework\Router;
+
 
 class App extends Singleton
 {
@@ -22,6 +24,7 @@ class App extends Singleton
 
     public function run()
     {
+        $router = Router::getInstance();
     }
 
     public function done()
