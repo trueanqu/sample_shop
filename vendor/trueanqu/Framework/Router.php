@@ -30,16 +30,22 @@ class Router extends Singleton
         $this->parsePatterns();
     }
 
+
     private function parsePatterns()
     {
-        foreach ($this->routes as $routerKey => $config)
+        foreach ($this->routes as $key => $route)
         {
-            //@TODO: fix pattern replacing
-            str_replace('/','\/',$config['pattern']);
-            $reqKeys = preg_match('%\{[a-z]+\}%', $config['pattern']);
-            if(isset($config['requirements'][$reqKeys[1]]))
-                preg_replace('%\{([a-z]+?)\}%',$config['requirements'][$reqKeys[1]], $config['pattern']);
-            $config['pattern'] = '/^'.$config['pattern'].'$/';
+            $route['pattern'] = str_replace('/','\/',$route['pattern']);
+            if(isset($route['requirements']))
+            {
+                foreach ($route['requirements'] as $par => $restr)
+                {
+                    $route['pattern'] = preg_replace('/\{'.$par.'\}/', $restr, $route['pattern']);
+                }
+            }
+
+            $route['pattern'] = '/^'.$route['pattern'].'$/';
+            $this->routes[$key] = $route;
         }
     }
 
