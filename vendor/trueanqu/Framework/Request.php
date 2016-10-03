@@ -13,6 +13,7 @@ class Request extends Singleton
 {
     private $requestUri;
     private $requestMethod;
+    private $config;
 
     /**
      * @return string
@@ -32,17 +33,19 @@ class Request extends Singleton
 
     private function __construct()
     {
+        $config = Config::getInstance();
+        $this->config = $config->getConfigByName('request');
         $this->requestMethod = $this->filterMethod();
         $this->requestUri = $this->filterUri();
     }
 
     public function filterUri()
     {
-        if(preg_match("/^\/[a-z]*(\/([a-z]*|[0-9]*))?$/", $_SERVER['REQUEST_URI'])) // deleted (\/[a-z]+)? for '/edit'-like suffixes
+        if(preg_match($this->config['uri_filter'], $_SERVER['REQUEST_URI'])) // deleted (\/[a-z]+)? for '/edit'-like suffixes
             return $_SERVER['REQUEST_URI'];
         else
             return 'invalid uri';//TODO: handle exception
-        //return filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_ENCODED, FILTER_FLAG_STRIP_LOW);
+
     }
 
     /**
