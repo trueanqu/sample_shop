@@ -6,6 +6,12 @@
  * Time: 11:03 AM
  */
 return [
+    'index' => [
+        'pattern' => '/',
+        'http_method' => 'GET',
+        'class' => 'IndexController',
+        'method' => 'getIndex'
+    ],
     /*--------------------------------------CATEGORIES SECTION-----------------------------------------------*/
     'get_categories' => [
         'pattern' => '/category/',
