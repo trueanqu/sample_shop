@@ -8,7 +8,10 @@
 
 namespace Framework;
 
-
+/**
+ * Class Router to analyze Request data and choose the corresponding route
+ * @package Framework
+ */
 class Router extends Singleton
 {
     private $routes = array();
@@ -23,6 +26,9 @@ class Router extends Singleton
         return new Router();
     }
 
+    /**
+     * Get and preprocess router config
+     */
     private function getRoutesFromConfig()
     {
         $config = Config::getInstance();
@@ -31,6 +37,9 @@ class Router extends Singleton
     }
 
 
+    /**
+     * Turn config patterns into regexp patterns and include requirements (given in config files)
+     */
     private function parsePatterns()
     {
         foreach ($this->routes as $key => $route)
@@ -49,8 +58,19 @@ class Router extends Singleton
         }
     }
 
-    public function getRoute(Request $request)
+    /**
+     * Get route corresponding current request http_method and uri
+     * @return mixed|null
+     */
+    public function getRoute()
     {
+        $request = Request::getInstance();
+        foreach($this->routes as $route)
+        {
+            if(preg_match($route['pattern'], $request->getRequestUri()) && $route['http_method'] == $request->getRequestMethod())
+                return $route;
+        }
 
+        return null;
     }
 }
