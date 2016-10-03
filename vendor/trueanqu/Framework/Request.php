@@ -14,6 +14,22 @@ class Request extends Singleton
     private $requestUri;
     private $requestMethod;
 
+    /**
+     * @return string
+     */
+    public function getRequestUri()
+    {
+        return $this->requestUri;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestMethod()
+    {
+        return $this->requestMethod;
+    }
+
     private function __construct()
     {
         $this->requestMethod = $this->filterMethod();
