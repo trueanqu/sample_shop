@@ -47,9 +47,10 @@ class Router extends Singleton
             $route['pattern'] = str_replace('/','\/',$route['pattern']);
             if(isset($route['requirements']))
             {
+                $route['params'] = array_keys($route['requirements']);
                 foreach ($route['requirements'] as $par => $restr)
                 {
-                    $route['pattern'] = preg_replace('/\{'.$par.'\}/', $restr, $route['pattern']);
+                    $route['pattern'] = preg_replace('/\{'.$par.'\}/', '('.$restr.'?)', $route['pattern']);
                 }
             }
 
@@ -67,8 +68,18 @@ class Router extends Singleton
         $request = Request::getInstance();
         foreach($this->routes as $route)
         {
-            if(preg_match($route['pattern'], $request->getRequestUri()) && $route['http_method'] == $request->getRequestMethod())
+            if(preg_match($route['pattern'], $request->getRequestUri(), $matches) && $route['http_method'] == $request->getRequestMethod())
+            {
+                if(count($matches) > 0)
+                {
+                    $matches = array_slice($matches,1);
+                    $route['params'] = array_combine($route['params'], $matches);
+                }
+
+                var_dump($route);
                 return $route;
+            }
+
         }
 
         return null;
