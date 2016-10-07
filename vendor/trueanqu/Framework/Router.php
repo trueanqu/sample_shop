@@ -76,7 +76,6 @@ class Router extends Singleton
                     $route['params'] = array_combine($route['params'], $matches);
                 }
 
-                var_dump($route);
                 return $route;
             }
 
