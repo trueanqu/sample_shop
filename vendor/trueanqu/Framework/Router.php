@@ -70,7 +70,7 @@ class Router extends Singleton
         {
             if(preg_match($route['pattern'], $request->getRequestUri(), $matches) && $route['http_method'] == $request->getRequestMethod())
             {
-                if(count($matches) > 0)
+                if(count($matches) > 1)
                 {
                     $matches = array_slice($matches,1);
                     $route['params'] = array_combine($route['params'], $matches);
