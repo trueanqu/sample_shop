@@ -37,8 +37,7 @@ class Request extends Singleton
 
     private function __construct()
     {
-        $config = Config::getInstance();
-        $this->config = $config->getConfigByName('request');
+        $this->config = Config::getConfigByName('request');
         $this->requestMethod = $this->filterMethod();
         $this->requestUri = $this->filterUri();
     }

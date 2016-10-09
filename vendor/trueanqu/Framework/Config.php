@@ -11,13 +11,13 @@ namespace Framework;
 
 class Config extends Singleton
 {
-    private $config = array();
+    private static $config = [];
 
     private function __construct()
     {
         $defaultConfig = include '../config/default_config.php';
-        $configFiles = scandir('../config');
-        $customConfig = array();
+        $configFiles = scandir('../config/');
+        $customConfig = [];
 
         foreach($configFiles as $value)
         {
@@ -28,16 +28,16 @@ class Config extends Singleton
             }
         }
 
-        $this->config = array_merge($defaultConfig,$customConfig);
+        self::$config = array_merge($defaultConfig,$customConfig);
     }
 
     /**Get full configuration
      *
      * @return array
      */
-    public function getConfig()
+    public static function getConfig()
     {
-        return $this->config;
+        return self::$config;
     }
 
     /**Get certain value or array of values correspond requested $name
@@ -46,10 +46,10 @@ class Config extends Singleton
      * @return mixed value or array of configurational values were requested
      * @throws \Exception if there is no configuration which corresponds to $name
      */
-    public function getConfigByName ($name)
+    public static function getConfigByName ($name)
     {
-        if(isset($this->config[$name]))
-            return $this->config[$name];
+        if(isset(self::$config[$name]))
+            return self::$config[$name];
         throw new \Exception('No configuration for '.$name.' has been set.');
     }
 

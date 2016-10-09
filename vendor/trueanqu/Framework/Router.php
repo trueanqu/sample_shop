@@ -41,8 +41,7 @@ class Router
      */
     private function getRoutesFromConfig()
     {
-        $config = Config::getInstance();
-        $this->routes = $config->getConfigByName('routes');
+        $this->routes = Config::getConfigByName('routes');
         $this->parsePatterns();
     }
 
@@ -93,7 +92,7 @@ class Router
 
     public function buildRoute($name, $params = [])
     {
-        $routes = Config::getInstance()->getConfigByName('routes');
+        $routes = Config::getConfigByName('routes');
         $outRoute = null;
 
         if(isset($routes[$name])) {
