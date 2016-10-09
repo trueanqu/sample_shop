@@ -12,8 +12,10 @@ namespace Framework;
  * Class Router to analyze Request data and choose the corresponding route
  * @package Framework
  */
-class Router extends Singleton
+class Router
 {
+    private static $_instance;
+
     private $routes = array();
 
     private function __construct()
@@ -21,9 +23,17 @@ class Router extends Singleton
         $this->getRoutesFromConfig();
     }
 
-    protected static function createInstance()
+    public static function getInstance()
     {
-        return new Router();
+        if( self::$_instance === null)
+        {
+            self::$_instance = new Router();
+        }
+        return self::$_instance;
+    }
+
+    private final function __clone()
+    {
     }
 
     /**
@@ -42,20 +52,17 @@ class Router extends Singleton
      */
     private function parsePatterns()
     {
-        foreach ($this->routes as $key => $route)
-        {
-            $route['pattern'] = str_replace('/','\/',$route['pattern']);
-            if(isset($route['requirements']))
-            {
+        foreach ($this->routes as $key => $route) {
+            $route['pattern'] = str_replace('/', '\/', $route['pattern']);
+            if (isset($route['requirements'])) {
                 $route['params'] = array_keys($route['requirements']);
 
-                foreach ($route['requirements'] as $par => $restr)
-                {
-                    $route['pattern'] = preg_replace('/\{'.$par.'\}/', '('.$restr.'?)', $route['pattern']);
+                foreach ($route['requirements'] as $par => $restr) {
+                    $route['pattern'] = preg_replace('/\{' . $par . '\}/', '(' . $restr . '?)', $route['pattern']);
                 }
             }
 
-            $route['pattern'] = '/^'.$route['pattern'].'$/';
+            $route['pattern'] = '/^' . $route['pattern'] . '$/';
             $this->routes[$key] = $route;
         }
     }
@@ -66,14 +73,12 @@ class Router extends Singleton
      */
     public function getRoute(Request $request)
     {
-        foreach($this->routes as $routeName => $route)
-        {
-            if(preg_match($route['pattern'], $request->getRequestUri(), $matches)
-                && $route['http_method'] == $request->getRequestMethod())
-            {
-                if(count($matches) > 1)
-                {
-                    $matches = array_slice($matches,1);
+        foreach ($this->routes as $routeName => $route) {
+            if (preg_match($route['pattern'], $request->getRequestUri(), $matches)
+                && $route['http_method'] == $request->getRequestMethod()
+            ) {
+                if (count($matches) > 1) {
+                    $matches = array_slice($matches, 1);
                     $route['params'] = array_combine($route['params'], $matches);
                 }
 
@@ -94,28 +99,22 @@ class Router extends Singleton
         $routes = Config::getInstance()->getConfigByName('routes');
         $outRoute = null;
 
-        foreach($routes as $key => $value)
-        {
-            if($name == $key && isset($params))
-            {
-                foreach($params as $parName => $parValue)
-                {
-                    $outRoute = preg_replace('/\{'. $parName . '\}/', $parValue, $value['pattern']);
-                }
-
-                return $outRoute;
-
-            } elseif ($name == $key && !isset($params))
-            {
-                foreach($this->routes as $parName => $parValue)
-                {
+        foreach ($routes as $key => $value) {
+            if ($name == $key && isset($params)) {
+                foreach ($params as $parName => $parValue) {
                     $outRoute = preg_replace('/\{' . $parName . '\}/', $parValue, $value['pattern']);
                 }
 
                 return $outRoute;
 
-            } elseif ($name == $key)
-            {
+            } elseif ($name == $key && !isset($params)) {
+                foreach ($this->routes as $parName => $parValue) {
+                    $outRoute = preg_replace('/\{' . $parName . '\}/', $parValue, $value['pattern']);
+                }
+
+                return $outRoute;
+
+            } elseif ($name == $key) {
                 return $value['pattern'];
             }
 
