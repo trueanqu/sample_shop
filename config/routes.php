@@ -14,7 +14,7 @@ return [
     ],
     /*--------------------------------------CATEGORIES SECTION-----------------------------------------------*/
     'get_categories' => [
-        'pattern' => '/category/',
+        'pattern' => '/category',
         'http_method' => 'GET',
         'class' => 'CategoryController',
         'method' => 'getCategories'
@@ -31,7 +31,7 @@ return [
     ],
     /*--------------------------------------PRODUCTS SECTION-------------------------------------------------*/
     'get_products' => [
-        'pattern' => '/product/',
+        'pattern' => '/product',
         'http_method' => 'GET',
         'class' => 'ProductController',
         'method' => 'getProducts'
@@ -77,13 +77,13 @@ return [
         ]
     ],
     'get_clients' => [
-        'pattern' => '/client/',
+        'pattern' => '/client',
         'http_method' => 'GET',
         'class' => 'ClientController',
         'method' => 'getClients'
     ],
     'get_orders' => [
-        'pattern' => '/order/',
+        'pattern' => '/order',
         'http_method' => 'GET',
         'class' => 'OrderController',
         'method' => 'getOrders'
