@@ -48,6 +48,7 @@ class Router extends Singleton
             if(isset($route['requirements']))
             {
                 $route['params'] = array_keys($route['requirements']);
+
                 foreach ($route['requirements'] as $par => $restr)
                 {
                     $route['pattern'] = preg_replace('/\{'.$par.'\}/', '('.$restr.'?)', $route['pattern']);
@@ -63,12 +64,12 @@ class Router extends Singleton
      * Get route corresponding current request http_method and uri
      * @return mixed|null
      */
-    public function getRoute()
+    public function getRoute(Request $request)
     {
-        $request = Request::getInstance();
-        foreach($this->routes as $route)
+        foreach($this->routes as $routeName => $route)
         {
-            if(preg_match($route['pattern'], $request->getRequestUri(), $matches) && $route['http_method'] == $request->getRequestMethod())
+            if(preg_match($route['pattern'], $request->getRequestUri(), $matches)
+                && $route['http_method'] == $request->getRequestMethod())
             {
                 if(count($matches) > 1)
                 {
@@ -76,11 +77,50 @@ class Router extends Singleton
                     $route['params'] = array_combine($route['params'], $matches);
                 }
 
+                echo '<pre>';
+                var_dump($this->buildRoute($routeName, $route['params']));
+
                 return $route;
             }
 
         }
 
         return null;
+    }
+
+
+    public function buildRoute($name, $params = [])
+    {
+        $routes = Config::getInstance()->getConfigByName('routes');
+        $outRoute = null;
+
+        foreach($routes as $key => $value)
+        {
+            if($name == $key && isset($params))
+            {
+                foreach($params as $parName => $parValue)
+                {
+                    $outRoute = preg_replace('/\{'. $parName . '\}/', $parValue, $value['pattern']);
+                }
+
+                return $outRoute;
+
+            } elseif ($name == $key && !isset($params))
+            {
+                foreach($this->routes as $parName => $parValue)
+                {
+                    $outRoute = preg_replace('/\{' . $parName . '\}/', $parValue, $value['pattern']);
+                }
+
+                return $outRoute;
+
+            } elseif ($name == $key)
+            {
+                return $value['pattern'];
+            }
+
+        }
+
+        return $outRoute;
     }
 }
