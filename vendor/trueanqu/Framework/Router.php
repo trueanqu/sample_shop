@@ -25,8 +25,7 @@ class Router
 
     public static function getInstance()
     {
-        if( self::$_instance === null)
-        {
+        if (self::$_instance === null) {
             self::$_instance = new Router();
         }
         return self::$_instance;
@@ -95,7 +94,7 @@ class Router
         $routes = Config::getConfigByName('routes');
         $outRoute = null;
 
-        if(isset($routes[$name])) {
+        if (isset($routes[$name])) {
             if (isset($params)) {
                 foreach ($params as $parName => $parValue) {
                     $outRoute = str_replace('{' . $parName . '}', $parValue, $routes[$name]['pattern']);
