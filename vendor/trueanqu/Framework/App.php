@@ -25,7 +25,7 @@ class App extends Singleton
     public function run()
     {
         $router = Router::getInstance();
-        $route = $router->getRoute();
+        $route = $router->getRoute($this->request);
     }
 
     public function done()
