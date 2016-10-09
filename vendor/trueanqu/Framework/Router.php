@@ -102,14 +102,14 @@ class Router
         if(isset($routes[$name])) {
             if (isset($params)) {
                 foreach ($params as $parName => $parValue) {
-                    $outRoute = preg_replace('/\{' . $parName . '\}/', $parValue, $routes[$name]['pattern']);
+                    $outRoute = str_replace('{' . $parName . '}', $parValue, $routes[$name]['pattern']);
                 }
 
                 return $outRoute;
 
             } elseif (!isset($params)) {
                 foreach ($this->routes as $parName => $parValue) {
-                    $outRoute = preg_replace('/\{' . $parName . '\}/', $parValue, $routes[$name]['pattern']);
+                    $outRoute = str_replace('{' . $parName . '}', $parValue, $routes[$name]['pattern']);
                 }
 
                 return $outRoute;
