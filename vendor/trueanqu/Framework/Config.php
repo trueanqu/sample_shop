@@ -12,19 +12,21 @@ namespace Framework;
 class Config extends Singleton
 {
     private static $config = [];
+    private $configDirPath = '../config/';
+    private $defaultConfigName = 'default_config.php';
 
     private function __construct()
     {
-        $defaultConfig = include '../config/default_config.php';
-        $configFiles = scandir('../config/');
+        $defaultConfig = include $this->configDirPath.$this->defaultConfigName;
+        $configFiles = scandir($this->configDirPath);
         $customConfig = [];
 
         foreach($configFiles as $value)
         {
-            if(strpos($value,'.php') AND $value !== 'default_config.php')
+            if(strpos($value,'.php') AND $value !== $this->defaultConfigName)
             {
                 $customKey = substr($value, 0, strpos($value, '.'));
-                $customConfig[$customKey] = include '../config/'.$value;
+                $customConfig[$customKey] = include $this->configDirPath.$value;
             }
         }
 
