@@ -82,9 +82,6 @@ class Router
                     $route['params'] = array_combine($route['params'], $matches);
                 }
 
-                echo '<pre>';
-                var_dump($this->buildRoute($routeName, $route['params']));
-
                 return $route;
             }
 
