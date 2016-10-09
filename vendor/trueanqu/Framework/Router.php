@@ -99,23 +99,23 @@ class Router
         $routes = Config::getInstance()->getConfigByName('routes');
         $outRoute = null;
 
-        foreach ($routes as $key => $value) {
-            if ($name == $key && isset($params)) {
+        if(isset($routes[$name])) {
+            if (isset($params)) {
                 foreach ($params as $parName => $parValue) {
-                    $outRoute = preg_replace('/\{' . $parName . '\}/', $parValue, $value['pattern']);
+                    $outRoute = preg_replace('/\{' . $parName . '\}/', $parValue, $routes[$name]['pattern']);
                 }
 
                 return $outRoute;
 
-            } elseif ($name == $key && !isset($params)) {
+            } elseif (!isset($params)) {
                 foreach ($this->routes as $parName => $parValue) {
-                    $outRoute = preg_replace('/\{' . $parName . '\}/', $parValue, $value['pattern']);
+                    $outRoute = preg_replace('/\{' . $parName . '\}/', $parValue, $routes[$name]['pattern']);
                 }
 
                 return $outRoute;
 
-            } elseif ($name == $key) {
-                return $value['pattern'];
+            } else {
+                return $outRoute = $routes[$name]['pattern'];
             }
 
         }
