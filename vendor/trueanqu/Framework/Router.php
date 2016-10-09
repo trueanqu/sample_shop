@@ -57,7 +57,7 @@ class Router
                 $route['params'] = array_keys($route['requirements']);
 
                 foreach ($route['requirements'] as $par => $restr) {
-                    $route['pattern'] = preg_replace('/\{' . $par . '\}/', '(' . $restr . '?)', $route['pattern']);
+                    $route['pattern'] = str_replace('{' . $par . '}', '(' . $restr . '?)', $route['pattern']);
                 }
             }
 
