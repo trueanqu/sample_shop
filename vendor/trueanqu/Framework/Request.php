@@ -13,11 +13,32 @@ namespace Framework;
  * Class Request gathering and filtering data from the superglobal arrays
  * @package Framework
  */
-class Request extends Singleton
+class Request
 {
+    private static $_instance;
     private $requestUri;
     private $requestMethod;
     private $config;
+
+    private function __construct()
+    {
+        $this->config = Config::getConfigByName('request');
+        $this->requestMethod = $this->filterMethod();
+        $this->requestUri = $this->filterUri();
+    }
+
+    public static function getInstance()
+    {
+        if(!isset(self::$_instance))
+        {
+            self::$_instance = new Request();
+        }
+        return self::$_instance;
+    }
+
+    private final function __clone()
+    {
+    }
 
     /**
      * @return string
@@ -34,14 +55,6 @@ class Request extends Singleton
     {
         return $this->requestMethod;
     }
-
-    private function __construct()
-    {
-        $this->config = Config::getConfigByName('request');
-        $this->requestMethod = $this->filterMethod();
-        $this->requestUri = $this->filterUri();
-    }
-
 
     /**
      * Filter uri if it isn't corresponding rule (uri_filter) given in configuration file
@@ -72,8 +85,4 @@ class Request extends Singleton
         }
     }
 
-    protected static function createInstance()
-    {
-        return new Request();
-    }
 }
