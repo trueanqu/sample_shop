@@ -106,7 +106,7 @@ class Request
      */
     public function setRequestParameters($requestParameters)
     {
-        $this->requestParameters = $requestParameters;
+        $this->requestParameters = $this->filterParameters($requestParameters);
     }
 
     /**
@@ -122,7 +122,7 @@ class Request
      */
     public function setFiles($files)
     {
-        $this->files = $files;
+        $this->files = $this->filterFiles($files);
     }
 
     /**
