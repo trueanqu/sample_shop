@@ -121,4 +121,12 @@ class Router
 
         return $outRoute;
     }
+
+    /**
+     * @return mixed|null
+     */
+    public function getCurrentRoute()
+    {
+        return $this->currentRoute;
+    }
 }
