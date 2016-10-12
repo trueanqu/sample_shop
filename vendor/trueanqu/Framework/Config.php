@@ -11,33 +11,35 @@ namespace Framework;
 
 class Config extends Singleton
 {
-    private $config = array();
+    private static $config = [];
+    private $configDirPath = '../config/';
+    private $defaultConfigName = 'default_config.php';
 
     private function __construct()
     {
-        $defaultConfig = include '../config/default_config.php';
-        $configFiles = scandir('../config');
-        $customConfig = array();
+        $defaultConfig = include $this->configDirPath.$this->defaultConfigName;
+        $configFiles = scandir($this->configDirPath);
+        $customConfig = [];
 
         foreach($configFiles as $value)
         {
-            if(strpos($value,'.php') AND $value !== 'default_config.php')
+            if(strpos($value,'.php') AND $value !== $this->defaultConfigName)
             {
                 $customKey = substr($value, 0, strpos($value, '.'));
-                $customConfig[$customKey] = include '../config/'.$value;
+                $customConfig[$customKey] = include $this->configDirPath.$value;
             }
         }
 
-        $this->config = array_merge($defaultConfig,$customConfig);
+        self::$config = array_merge($defaultConfig,$customConfig);
     }
 
     /**Get full configuration
      *
      * @return array
      */
-    public function getConfig()
+    public static function getConfig()
     {
-        return $this->config;
+        return self::$config;
     }
 
     /**Get certain value or array of values correspond requested $name
@@ -46,10 +48,10 @@ class Config extends Singleton
      * @return mixed value or array of configurational values were requested
      * @throws \Exception if there is no configuration which corresponds to $name
      */
-    public function getConfigByName ($name)
+    public static function getConfigByName ($name)
     {
-        if(isset($this->config[$name]))
-            return $this->config[$name];
+        if(isset(self::$config[$name]))
+            return self::$config[$name];
         throw new \Exception('No configuration for '.$name.' has been set.');
     }
 

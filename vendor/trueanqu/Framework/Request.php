@@ -9,42 +9,150 @@
 namespace Framework;
 
 
-class Request extends Singleton
+    /**
+     * Class Request gathering and filtering data from the superglobal arrays
+     * @package Framework
+     */
+/**
+ * Class Request
+ * @package Framework
+ */
+class Request
 {
+    private static $_instance;
+    private $config;
     private $requestUri;
     private $requestMethod;
+    private $requestParameters;
+    private $files;
+
 
     private function __construct()
     {
+        $this->config = Config::getConfigByName('request');
         $this->requestMethod = $this->filterMethod();
-        $this->requestUri = $this->filterUri();
+        $this->requestUri = $_SERVER['REQUEST_URI'];
+        $this->requestParameters = $this->filterParameters();
+        $this->files = $this->filterFiles();
     }
 
-    public function filterUri()
+    public static function getInstance()
     {
-        if(preg_match("/^\/[a-z]+((\/([a-z]+|[0-9]+)(\/[a-z]+)?))?$/", $_SERVER['REQUEST_URI']))
-            return $_SERVER['REQUEST_URI'];
-        else
-            return 'invalid uri';//TODO: handle exception
-        //return filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_ENCODED, FILTER_FLAG_STRIP_LOW);
+        if (!isset(self::$_instance)) {
+            self::$_instance = new Request();
+        }
+        return self::$_instance;
+    }
+
+    private final function __clone()
+    {
+    }
+
+
+    /** Collect and filter request parameters located at @param $parameters (if given) or $_REQUEST
+     *
+     * @param array $parameters parameters to filter
+     * @return array of filtered parameters
+     */
+    private function filterParameters($parameters = null)
+    {
+        if (isset($parameters))//@TODO add filtering
+        {
+            return $parameters;
+        }
+
+        return $_REQUEST;
+    }
+
+    /**Filter files given in $files or superglobal array $_FILES
+     *
+     * @param array $files files to filter
+     * @return array of filtered files
+     */
+    private function filterFiles($files = null)
+    {
+        if (isset($files)) { //@TODO filtering
+            return $files;
+        }
+        return $_FILES;
     }
 
     /**
-     * @return
+     * @return mixed
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param mixed $config
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequestParameters()
+    {
+        return $this->requestParameters;
+    }
+
+    /**
+     * @param mixed $requestParameters
+     */
+    public function setRequestParameters($requestParameters)
+    {
+        $this->requestParameters = $this->filterParameters($requestParameters);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param mixed $files
+     */
+    public function setFiles($files)
+    {
+        $this->files = $this->filterFiles($files);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestUri()
+    {
+        return $this->requestUri;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestMethod()
+    {
+        return $this->requestMethod;
+    }
+
+    /**
+     * Check if the request http_method is one of the listed in config
+     * @return string htttp method of request
+     * @return null if current http request method use is not supported
      */
     public function filterMethod()
     {
-        $validMethods = array ('GET','POST', 'PUT', 'DELETE');
-        if(in_array($_SERVER['REQUEST_METHOD'],$validMethods))
-        {
+        if (in_array($_SERVER['REQUEST_METHOD'], $this->config['valid_http_methods'])) {
             return $_SERVER['REQUEST_METHOD'];
         } else {
-            return 'invalid method';//TODO: return response with 500 code or throw exception;
+            return null;//@TODO: return response with 500 code or throw exception;
         }
     }
 
-    protected static function createInstance()
-    {
-        return new Request();
-    }
 }
