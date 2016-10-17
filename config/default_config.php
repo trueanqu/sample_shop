@@ -11,7 +11,12 @@ return [
     'encode' => 'utf-8',
     'default_controller' => 'index',
     'default_action' => 'index',
-    'db' => array(),
+    'db' => [
+        'driver' => 'mysqli',
+        'host' => '127.0.0.1',
+        'port' => '3306',
+        'database' => 'sample_shop_db'
+    ],
     'routes' => array(),
     'scripts' => array(
         '/path-to-script/script.js',
