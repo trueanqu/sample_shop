@@ -30,5 +30,5 @@ interface DBObject
 
     function getErrorMessage();
 
-
+    function getDriverInfo();
 }
