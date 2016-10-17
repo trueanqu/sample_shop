@@ -16,6 +16,8 @@ interface DBObject
      * Send query to DB server
      * @return mixed
      */
+    function execute();
+
     function query();
 
     function close();
