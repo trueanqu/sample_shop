@@ -10,11 +10,7 @@ namespace Framework\DB;
 
 interface DBObject
 {
-    /**
-     * Get database connection with credentials listen in current or default config
-     * @return mixed
-     */
-    function getConnection();
+    function connect();
 
     /**
      * Send query to DB server
