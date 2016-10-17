@@ -21,4 +21,18 @@ interface DBObject
      * @return mixed
      */
     function query();
+
+    function close();
+
+    function getResultRaw();
+
+    function getResultAssoc();
+
+    function getResultObject();
+
+    function getErrorNumber();
+
+    function getErrorMessage();
+
+
 }
