@@ -13,6 +13,8 @@ use Framework\DB\DBObject;
 
 class MySQLAdapter implements DBObject 
 {
+    private $mysqlConnection;
+
     function getConnection()
     {
         // TODO: Implement getConnection() method.
@@ -23,4 +25,33 @@ class MySQLAdapter implements DBObject
         // TODO: Implement query() method.
     }
 
+    function close()
+    {
+        // TODO: Implement close() method.
+    }
+
+    function getResultRaw()
+    {
+        // TODO: Implement getResultRaw() method.
+    }
+
+    function getResultAssoc()
+    {
+        // TODO: Implement getResultAssoc() method.
+    }
+
+    function getResultObject()
+    {
+        // TODO: Implement getResultObject() method.
+    }
+
+    function getErrorNumber()
+    {
+        // TODO: Implement getErrorNumber() method.
+    }
+
+    function getErrorMessage()
+    {
+        // TODO: Implement getErrorMessage() method.
+    }
 }
