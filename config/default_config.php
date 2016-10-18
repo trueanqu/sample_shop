@@ -22,5 +22,6 @@ return [
         '/path-to-script/script.js',
         '/path-to-scriot/script1.js'
     ),
-    'styles' => array()
+    'styles' => array(),
+    'request' => []
 ];
