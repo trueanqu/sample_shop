@@ -30,6 +30,21 @@ class MySQLAdapter implements DBObject
         // TODO: Implement close() method.
     }
 
+    function connect()
+    {
+        // TODO: Implement connect() method.
+    }
+
+    function execute()
+    {
+        // TODO: Implement execute() method.
+    }
+
+    function getDriverInfo()
+    {
+        // TODO: Implement getDriverInfo() method.
+    }
+
     function getResultRaw()
     {
         // TODO: Implement getResultRaw() method.
