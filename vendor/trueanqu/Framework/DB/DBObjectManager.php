@@ -3,19 +3,22 @@
 namespace Framework\DB;
 
 
-use Framework\DB\Adapters\MySQLAdapter;
+use Framework\Config;
 
 class DBObjectManager
 {
-    public static function getDBObject($driver = 'mysqli')
+    public static function getDBObject($config = [])
     {
-        switch($driver) {
-            case 'mysqli':
-                return new MySQLAdapter();
-                break;
-            default :
-                throw new \Exception('No '.$driver.' database driver found.');
-        }
+        $config = array_merge(Config::getConfigByName('db'), $config);
+        $adapter = self::findAdapter($config);
+        return new $adapter();
+    }
 
+    public static function findAdapter($config)
+    {
+        $managerConfig = Config::getConfigByName('dbobject_manager');
+        if(in_array($config['dbms'], array_keys($managerConfig)))
+            return $managerConfig[$config['dbms']];
+        throw new \Exception('No database driver found for \''.$config['dbms'].'\' DBMS');
     }
 }
