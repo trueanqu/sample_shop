@@ -12,16 +12,17 @@ return [
     'default_controller' => 'index',
     'default_action' => 'index',
     'db' => [
-        'driver' => 'mysqli',
+        'dbms' => 'mysql',
         'host' => '127.0.0.1',
         'port' => '3306',
         'database' => 'sample_shop_db'
     ],
-    'routes' => array(),
-    'scripts' => array(
+    'routes' => [],
+    'scripts' => [
         '/path-to-script/script.js',
         '/path-to-scriot/script1.js'
-    ),
-    'styles' => array(),
-    'request' => []
+    ],
+    'styles' => [],
+    'request' => [],
+    'dbobject_manager' => []
 ];
