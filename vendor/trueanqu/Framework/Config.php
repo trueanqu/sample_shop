@@ -21,12 +21,16 @@ class Config extends Singleton
         $configFiles = scandir($this->configDirPath);
         $customConfig = [];
 
-        foreach($configFiles as $value)
+        foreach($configFiles as $configFile)
         {
-            if(strpos($value,'.php') AND $value !== $this->defaultConfigName)
+            if(strpos($configFile,'.php') AND $configFile !== $this->defaultConfigName)
             {
-                $customKey = substr($value, 0, strpos($value, '.'));
-                $customConfig[$customKey] = include $this->configDirPath.$value;
+                $customKey = substr($configFile, 0, strpos($configFile, '.'));
+                $customValue = include $this->configDirPath.$configFile;
+
+                $customConfig[$customKey] = (is_array($defaultConfig[$customKey]) && is_array($customValue)) ?
+                    array_merge($defaultConfig[$customKey], $customValue) : $customConfig[$customKey] = $customValue;
+
             }
         }
 
