@@ -11,13 +11,20 @@ namespace Framework\DB\Adapters;
 use Framework\DB\DBObject;
 
 
-class MySQLAdapter implements DBObject 
+class MySQLAdapter implements DBObject
 {
     private $mysqlConnection;
+    private $config;
+
+    public function __construct($config)
+    {
+        $this->config = $config;
+        $this->connect();
+    }
 
     function getConnection()
     {
-        // TODO: Implement getConnection() method.
+        return $this->mysqlConnection;
     }
 
     function query()
@@ -32,7 +39,26 @@ class MySQLAdapter implements DBObject
 
     function connect()
     {
-        // TODO: Implement connect() method.
+        if (empty($this->config['driver_options'])) {
+            $this->mysqlConnection = new \mysqli($this->config['host'], $this->config['user'],
+                $this->config['password'], $this->config['database'], $this->config['port']);
+        } else {
+
+            $mysqli = new \mysqli();
+            $mysqli->init();
+
+            foreach ($this->config['driver_options'] as $name => $value) {
+                $mysqli->options($name, $value);
+            }
+
+            $this->mysqlConnection = $mysqli->real_connect($this->config['host'], $this->config['user'],
+                $this->config['password'], $this->config['database'], $this->config['port']);
+        }
+
+        if ($this->mysqlConnection->connect_errno) {
+            throw new \Exception("Couldn't connect to MySQL: " . $this->mysqlConnection->connect_errno . " "
+                . $this->mysqlConnection->connect_error);
+        }
     }
 
     function execute()
