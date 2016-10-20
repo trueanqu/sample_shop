@@ -11,7 +11,7 @@ class DBObjectManager
     {
         $config = array_merge(Config::getConfigByName('db'), $config);
         $adapter = self::findAdapter($config);
-        return new $adapter();
+        return new $adapter($config);
     }
 
     public static function findAdapter($config)
