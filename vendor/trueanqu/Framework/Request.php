@@ -13,12 +13,26 @@ namespace Framework;
  * Class Request gathering and filtering data from the superglobal arrays
  * @package Framework
  */
-class Request extends Singleton
+class Request
 {
+    private static $_instance;
+    
     private $requestUri;
     private $requestMethod;
     private $config;
 
+    public static function getInstance()
+    {
+        if(self::$_instance === null) {
+            self::$_instance = new Request();
+        }
+
+        return self::$_instance;
+    }
+    
+    private function __clone(){}
+    private function __wakeup(){} // evades copying of instance while being deserialized
+    
     /**
      * @return string
      */
