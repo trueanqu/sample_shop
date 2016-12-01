@@ -11,10 +11,24 @@ namespace Framework;
 use Framework\Router;
 
 
-class App extends Singleton
+class App
 {
+    private static $_instance;
+
     private $config = null;
     private $request = null;
+
+    public static function getInstance()
+    {
+        if(self::$_instance === null) {
+            self::$_instance = new App();
+        }
+
+        return self::$_instance;
+    }
+
+    private function __clone(){}
+    private function __wakeup(){}
 
     private function __construct()
     {
