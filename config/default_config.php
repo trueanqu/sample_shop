@@ -11,11 +11,11 @@ return [
     'encode' => 'utf-8',
     'default_controller' => 'index',
     'default_action' => 'index',
-    'db' => array(),
-    'routes' => array(),
-    'scripts' => array(
+    'db' => [],
+    'routes' => [],
+    'scripts' => [
         '/path-to-script/script.js',
         '/path-to-scriot/script1.js'
-    ),
-    'styles' => array()
+    ],
+    'styles' => []
 ];
