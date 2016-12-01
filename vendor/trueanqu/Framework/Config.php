@@ -11,9 +11,23 @@ namespace Framework;
 
 class Config extends Singleton
 {
+    private static $_instance;
+    
     private static $config = [];
     private $configDirPath = '../config/';
     private $defaultConfigName = 'default_config.php';
+    
+    public static function getInstance()
+    {
+        if(self::$_instance === null) {
+            self::$_instance = new Config();
+        }
+        
+        return self::$_instance;
+    }
+    
+    private function __clone(){}
+    private function __wakeup(){}
 
     private function __construct()
     {
