@@ -15,12 +15,14 @@ namespace Framework;
 class Router
 {
     private static $_instance;
+    private $currentRoute;
 
     private $routes = array();
 
     private function __construct()
     {
         $this->getRoutesFromConfig();
+        $this->currentRoute = $this->getRoute(Request::getInstance());
     }
 
     public static function getInstance()
@@ -79,7 +81,7 @@ class Router
                     $matches = array_slice($matches, 1);
                     $route['params'] = array_combine($route['params'], $matches);
                 }
-
+                $route['name'] = $routeName;
                 return $route;
             }
 
@@ -89,21 +91,14 @@ class Router
     }
 
 
-    public function buildRoute($name, $params = [])
+    public function buildRoute($name = '', $params = [])
     {
         $routes = Config::getConfigByName('routes');
         $outRoute = null;
 
-        if (isset($routes[$name])) {
-            if (isset($params)) {
+        if ($name != '' && isset($routes[$name])) {
+            if ($params != []) {
                 foreach ($params as $parName => $parValue) {
-                    $outRoute = str_replace('{' . $parName . '}', $parValue, $routes[$name]['pattern']);
-                }
-
-                return $outRoute;
-
-            } elseif (!isset($params)) {
-                foreach ($this->routes as $parName => $parValue) {
                     $outRoute = str_replace('{' . $parName . '}', $parValue, $routes[$name]['pattern']);
                 }
 
@@ -112,9 +107,26 @@ class Router
             } else {
                 return $outRoute = $routes[$name]['pattern'];
             }
+        } elseif ($name == '' && isset($routes[$this->currentRoute['name']])) {
+            foreach ($this->currentRoute['params'] as $parName => $parValue) {
+                $outRoute = str_replace('{' . $parName . '}',
+                    $parValue,
+                    $routes[$this->currentRoute['name']]['pattern']
+                );
+            }
+
+            return $outRoute;
 
         }
 
         return $outRoute;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getCurrentRoute()
+    {
+        return $this->currentRoute;
     }
 }

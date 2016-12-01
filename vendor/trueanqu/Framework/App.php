@@ -39,7 +39,7 @@ class App
     public function run()
     {
         $router = Router::getInstance();
-        $route = $router->getRoute($this->request);
+        $route = $router->getCurrentRoute();
     }
 
     public function done()
