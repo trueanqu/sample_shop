@@ -9,7 +9,7 @@
 namespace Framework;
 
 
-class Config extends Singleton
+class Config
 {
     private static $_instance;
     
